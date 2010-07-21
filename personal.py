@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 #-*- coding: UTF-8 -*-
 
-import browser
+from debug import debug
 from decoradores import Verbose
+import browser
 import re
 
 @Verbose(2)
@@ -15,16 +16,22 @@ def main():
     if match:
         browser.webbrowser.open(match.group(1))
 
-    captcha = raw_input("Captcha: ")
+    print("Datos de la sessión:")
+    form["codigo"] = raw_input("  Captcha: ")
+    form["CODAREA"] = raw_input("  Códido de área: ")
+    form["NRO"] = raw_input("  Número: ")
+    form["DE_MESG_TXT"] = raw_input("  Remitente: ")
 
+    print("Mensajes: (deje en blanco para salir)")
     while True:
-        form["CODAREA"] = raw_input("Códido de área: ")
-        form["NRO"] = raw_input("Número: ")
-        form["DE_MESG_TXT"] = raw_input("Remitente: ")
-        form["MESG_TXT"] = raw_input("Mensaje: ")
-        form["codigo"] = captcha
+        mensaje = raw_input("  Nuevo mensaje: ")
+        if not mensaje:
+            debug("Saliendo limpiamente xD")
+            return
+
+        form["MESG_TXT"] = mensaje
+        print("  enviando...")
         form.submit()
-        binstance.show()
 
 if __name__ == "__main__":
     exit(main())
