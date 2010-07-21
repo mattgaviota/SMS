@@ -1,19 +1,19 @@
 #!/usr/bin/env python
 #-*- coding: UTF-8 -*-
 
-from browser import BROWSER
+import browser
 from decoradores import Verbose
 import re
 
 @Verbose(2)
 def main():
-    browser = BROWSER()
-    browser.go("http://sms1.personal.com.ar/Mensajes/sms.php")
-    form = browser.get_forms()[0]
+    binstance = browser.BROWSER()
+    binstance.go("http://sms1.personal.com.ar/Mensajes/sms.php")
+    form = binstance.get_forms()[0]
 
-    match = re.search(r'"(http://.*?tmp/.*?\.png)"', browser.get_html())
+    match = re.search(r'"(http://.*?tmp/.*?\.png)"', binstance.get_html())
     if match:
-        print match.group(1)
+        browser.webbrowser.open(match.group(1))
 
     captcha = raw_input("Captcha: ")
 
@@ -24,7 +24,7 @@ def main():
         form["MESG_TXT"] = raw_input("Mensaje: ")
         form["codigo"] = captcha
         form.submit()
-        browser.show()
+        binstance.show()
 
 if __name__ == "__main__":
     exit(main())
