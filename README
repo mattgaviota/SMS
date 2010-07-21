@@ -1,0 +1,2 @@
+Programa para enviar sms usando la interfaz web de Personal (proveedor argentino de telefonia celular)
+Para clonar usa git clone git@github.com:mattgaviota/SMS.git
