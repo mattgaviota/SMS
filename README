@@ -1,2 +1,11 @@
+Descripción
+-----------
+
 Programa para enviar sms usando la interfaz web de Personal (proveedor argentino de telefonia celular)
-Para clonar usa git clone git@github.com:mattgaviota/SMS.git
+
+
+Colaborar
+---------
+
+Puedes clonar el proyecto usando el comando:
+    git clone http://github.com/mattgaviota/SMS.git
