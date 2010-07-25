@@ -20,7 +20,7 @@ def main():
     print(form)
 
     print("Datos de la sessión:")
-    form["codigo"] = raw_input("  Captcha: ")
+    form["codigo"] = raw_input("  Captcha(verifique su navegador): ")
     form["CODAREA"] = raw_input("  Códido de área: ")
     form["NRO"] = raw_input("  Número: ")
     form["DE_MESG_TXT"] = raw_input("  Remitente: ")
