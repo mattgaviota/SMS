@@ -5,6 +5,7 @@ from debug import debug
 from decoradores import Verbose
 from pprint import pprint
 import browser
+import webbrowser
 import re
 
 @Verbose(2)
@@ -14,7 +15,7 @@ def main():
 
     match = re.search(r'"(http://.*?tmp/.*?\.png)"', binstance.get_html())
     if match:
-        browser.webbrowser.open(match.group(1))
+        webbrowser.open(match.group(1))
 
     print(form)
 
