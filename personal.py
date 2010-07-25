@@ -3,18 +3,20 @@
 
 from debug import debug
 from decoradores import Verbose
+from pprint import pprint
 import browser
 import re
 
 @Verbose(2)
 def main():
     binstance = browser.BROWSER()
-    binstance.go("http://sms1.personal.com.ar/Mensajes/sms.php")
-    form = binstance.get_forms()[0]
+    form = binstance.get_forms("http://sms1.personal.com.ar/Mensajes/sms.php")[0]
 
     match = re.search(r'"(http://.*?tmp/.*?\.png)"', binstance.get_html())
     if match:
         browser.webbrowser.open(match.group(1))
+
+    print(form)
 
     print("Datos de la sessión:")
     form["codigo"] = raw_input("  Captcha: ")
