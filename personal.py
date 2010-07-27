@@ -8,6 +8,27 @@ from browser import BROWSER
 import webbrowser
 import re
 
+
+
+def controla_mensaje(longremitente):
+    longmaxima = 110 - longremitente
+    mensaje = raw_input('mensaje (le quedan %d caracteres) : ' %(longmaxima,)) 
+    bandera = 1
+    while (len(mensaje) >= longmaxima) and bandera:
+        mensaje = mensaje[:longmaxima]
+        print 'su mensaje es el siguiente :'
+        print mensaje
+        print 'su mensaje fue acortado por superar el limite de caracteres'
+        print 'desea reescribirlo? (y/n)'
+        opcion = raw_input('respuesta : ')
+        if opcion in ['y','Y']:
+            mensaje = raw_input('mensaje (le quedan %d caracteres) : '
+                 %(longmaxima,))
+        else:
+            print 'su mensaje sera enviado como fue recortado'
+            bandera = 0
+    return mensaje
+
 @Verbose(2)
 def main():
     browser = BROWSER()
@@ -27,7 +48,7 @@ def main():
 
     print("Mensajes: (deje en blanco para salir)")
     while True:
-        mensaje = raw_input("  Nuevo mensaje: ")
+        mensaje = controla_mensaje(len(form["DE_MESG_TXT"]))
         if not mensaje:
             debug("Saliendo limpiamente xD")
             return
