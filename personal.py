@@ -9,25 +9,22 @@ import webbrowser
 import re
 
 
+def get_mensaje(remitente):
+    maxlen = 110 - len(remitente)
+    mensaje = raw_input('mensaje (max %d caracteres) : ' % maxlen)
 
-def controla_mensaje(longremitente):
-    longmaxima = 110 - longremitente
-    mensaje = raw_input('mensaje (le quedan %d caracteres) : ' %(longmaxima,)) 
-    bandera = 1
-    while (len(mensaje) >= longmaxima) and bandera:
+    while (len(mensaje) > maxlen):
         mensaje = mensaje[:longmaxima]
-        print 'su mensaje es el siguiente :'
-        print mensaje
-        print 'su mensaje fue acortado por superar el limite de caracteres'
-        print 'desea reescribirlo? (y/n)'
-        opcion = raw_input('respuesta : ')
-        if opcion in ['y','Y']:
-            mensaje = raw_input('mensaje (le quedan %d caracteres) : '
-                 %(longmaxima,))
+        print('Recortado a: %s' % mensaje)
+        opcion = raw_input('Desea reescribirlo? (s/n): ')
+        if opcion in 'sSyY':
+            mensaje = get_mensaje(remitente)
         else:
-            print 'su mensaje sera enviado como fue recortado'
-            bandera = 0
+            print('Su mensaje sera enviado como fue recortado')
+            return mensaje
+
     return mensaje
+
 
 @Verbose(2)
 def main():
@@ -37,6 +34,10 @@ def main():
     match = re.search(r'"(http://.*?tmp/.*?\.png)"', browser.get_html())
     if match:
         webbrowser.open(match.group(1))
+    else:
+        debug("No se encontró captcha")
+        browser.show()
+        return 1
 
     print(form)
 
@@ -44,11 +45,12 @@ def main():
     form["codigo"] = raw_input("  Captcha(verifique su navegador): ")
     form["CODAREA"] = raw_input("  Códido de área: ")
     form["NRO"] = raw_input("  Número: ")
-    form["DE_MESG_TXT"] = raw_input("  Remitente: ")
+    remitente = raw_input("  Remitente: ")
+    form["DE_MESG_TXT"] = remitente
 
     print("Mensajes: (deje en blanco para salir)")
     while True:
-        mensaje = controla_mensaje(len(form["DE_MESG_TXT"]))
+        mensaje = get_mensaje(remitente)
         if not mensaje:
             debug("Saliendo limpiamente xD")
             return
