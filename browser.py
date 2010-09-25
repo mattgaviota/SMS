@@ -6,11 +6,12 @@ import time
 import ClientForm
 import cPickle
 
-from tempfile import mkdtemp
+
+from cStringIO import StringIO
 from debug import debug
 from decoradores import signaltimeout
-from cStringIO import StringIO
-
+from functools import wraps
+from tempfile import mkdtemp
 from urllib2 import URLError
 
 import twill
@@ -86,15 +87,21 @@ class BROWSER:
     def clear_cookies(self):
         return self._twillbrowser.clear_cookies()
 
+    def save_cookies(self, filename):
+        return self._twillbrowser.save_cookies(filename)
+
+    def load_cookies(self, filename):
+        return self._twillbrowser.load_cookies(filename)
+
     def add_cookie(self, cookie, dominio):
         """Por ahora no se me ocurrió un metodo más elegante..."""
         temppath = "%s/%d" % (TEMPDIR, time.time())
-        self._twillbrowser.save_cookies(temppath)
+        self.save_cookies(temppath)
         cookiefile = open(temppath, "a+")
         cookiefile.write("""Set-Cookie3:%s; path="/";domain="%s";path_spec;"""
             """domain_dot; expires""; version=0""" % (cookie, dominio))
         cookiefile.close()
-        self._twillbrowser.load_cookies(temppath)
+        self.load_cookies(temppath)
 
     def go(self, url):
         try:

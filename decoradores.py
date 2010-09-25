@@ -28,8 +28,17 @@ class Asyncobj(Thread):
         Thread.__init__(self)
         self.result = None
 
+
     def __call__(self):
         return self
+
+
+    def is_alive(self):
+        try:
+            return Thread.is_alive(self)
+        except AttributeError:
+            return Thread.isAlive(self)
+
 
     def run(self):
         self.result = self.func(*self.args, **self.kwargs)
@@ -255,20 +264,26 @@ class Timeit:
 
 class Retry:
 
-    def __init__(self, attempts=5, retry_on=None):
+    def __init__(self, attempts=5, retry_on=None, pause=5):
         self.attempts = attempts
         self.retry_on = retry_on
+        self.pause = pause
 
     def __call__(self, func):
         def call(*args, **kwargs):
-            count = 0
-            result = self.retry_on
-            while count < self.attempts and result == self.retry_on:
-                count += 1
-                result = func(*args)
-                if result is None and VERBOSE:
-                    debug(" Retry %d: %s %s" % (
-                        count, func.func_name, result))
+            for attempt in xrange(self.attempts):
+                result = func(*args, **kwargs)
+
+                if result != self.retry_on:
+                    return result
+
+                if VERBOSE:
+                    debug(" Retry %d: %s(*%s)" % (attempt, func.func_name,
+                        args))
+                time.sleep(self.pause)
+            else:
+                debug(" Failed %s(*%s, **%s)" % (func.func_name, args, kwargs))
+
             return result
         return call
 
