@@ -43,11 +43,11 @@ def read_mensaje(remitente):
     mensaje = raw_input('mensaje (max %d caracteres): ' % maxlen)
 
     while (len(mensaje) > maxlen):
-        mensaje = mensaje[:longmaxima]
+        mensaje = mensaje[:maxlen]
         print('Recortado a: %s' % mensaje)
-        opcion = raw_input('Desea reescribirlo? (s/n): ')
-        if opcion in 'sSyY':
-            mensaje = get_mensaje(remitente)
+        opcion = raw_input('Desea reescribirlo? (S/n): ')
+        if opcion in 'sSyY ':
+            mensaje = read_mensaje(remitente)
         else:
             print('Su mensaje será enviado como fue recortado')
             return mensaje.ljust(maxlen)
