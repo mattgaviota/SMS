@@ -10,7 +10,7 @@ import re
 import sys
 import os
 
-FORMURL = """http://sms1.personal.com.ar/Mensajes/sms.php"""
+FORMURL = """http://sms2.personal.com.ar/Mensajes/sms.php"""
 COOKIESTORE = os.path.expanduser("""~/.personal.cookie""")
 
 class Conversation(object):
@@ -50,15 +50,17 @@ def read_mensaje(remitente):
             mensaje = get_mensaje(remitente)
         else:
             print('Su mensaje será enviado como fue recortado')
-            return mensaje
+            return mensaje.ljust(maxlen)
 
-    return mensaje
+    return mensaje.ljust(maxlen)
 
 
 def show_captcha(html):
+    browser = get_browser()
     match = re.search(r'"(http://.*?tmp/.*?\.png)"', html)
     if match:
         webbrowser.open(match.group(1))
+        debug("Captcha: %s" % match.group(1))
     else:
         debug("No se encontró captcha")
         browser.show()
@@ -77,10 +79,14 @@ def main():
 
     if len(sys.argv) == 4:
         remitente, codarea, numlocal = sys.argv[1:]
-    else:
+    elif len(sys.argv) == 1:
         remitente = raw_input("  Remitente: ")
         codarea = raw_input("  Códido de área: ")
         numlocal = raw_input("  Número: ")
+    else:
+        print("Si no se pasa argumentos le seran preguntados sino invoque:")
+        print("    %s remitente codarea numlocal" % sys.argv[0])
+        return 1
 
     print("Datos de la sessión:")
 
