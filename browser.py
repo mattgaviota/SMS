@@ -112,6 +112,7 @@ class BROWSER:
 
         return self.get_code(), self.get_title()
 
+
     def get_html(self, url=None, *args, **kw):
         cache = kw.get("cache", 0)
 
@@ -151,25 +152,26 @@ class BROWSER:
             self.go(url, *args, **kwargs)
         return self._twillbrowser.get_title()
 
+
     def get_code(self, url=None):
         if url:
             self.go(url)
         return self._twillbrowser.get_code()
 
+
     def get_url(self):
         return self._twillbrowser.get_url()
 
+
     def get_forms(self, url=None, *args, **kw):
-
-        if url is None:
-            url = self.get_url()
-
+        posturl = url or self.get_url()
         fifo = StringIO()
         fifo.writelines(self.get_html(url, *args, **kw))
         fifo.seek(0)
-        forms = ClientForm.ParseFile(fifo, url, backwards_compat=False)
+        forms = ClientForm.ParseFile(fifo, posturl, backwards_compat=False)
 
         return [FORM(self, form) for form in forms]
+
 
     def put_form(self, form=None, *args, **kw):
         if form is None:
