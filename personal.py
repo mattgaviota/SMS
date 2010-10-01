@@ -87,12 +87,12 @@ def main():
     print("Datos de la sessión:")
 
     captcha = show_captcha()
-    form["codigo"] = captcha
 
     form = browser.get_forms()[0]
     form.set_all_readonly(False)
 
 
+    form["codigo"] = captcha
     form["FormValidar"] = "validar"
     form["CODAREA"] = codarea
     form["NRO"] = numlocal
