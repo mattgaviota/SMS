@@ -62,12 +62,11 @@ def show_captcha():
     match = re.search(r'"(http://.*?tmp/.*?\.png)"', html)
     if match:
         webbrowser.open(match.group(1))
-        debug("Captcha: %s" % match.group(1))
+#        debug("Captcha: %s" % match.group(1))
         return raw_input("  Captcha(verifique su navegador): ")
 
 
 
-@Verbose(2)
 def main():
     browser = get_browser()
 
@@ -76,6 +75,7 @@ def main():
     if len(sys.argv) == 4:
         remitente, codarea, numlocal = sys.argv[1:]
     elif len(sys.argv) == 1:
+        print("Datos de la sessión:")
         remitente = raw_input("  Remitente: ")
         codarea = raw_input("  Códido de área: ")
         numlocal = raw_input("  Número: ")
@@ -84,45 +84,42 @@ def main():
         print("    %s remitente codarea numlocal" % sys.argv[0])
         return 1
 
-    print("Datos de la sessión:")
 
-    captcha = show_captcha()
-
-    form = browser.get_forms()[0]
-    form.set_all_readonly(False)
-
-
-    form["codigo"] = captcha
-    form["FormValidar"] = "validar"
-    form["CODAREA"] = codarea
-    form["NRO"] = numlocal
-    form["Snb"] = codarea + numlocal
-    form["subname"] = codarea + numlocal
-    form["DE_MESG_TXT"] = remitente
-    form["sig"] = remitente
 
     print("Mensajes: (deje en blanco para salir)")
     while True:
 
-#        show_captcha(browser.get_html())
-#        form["codigo"] = raw_input("  Captcha(verifique su navegador): ")
-
         # <WTF! No debería funcionar con el cookie incorrecto, ¿que no?>
         # R: Conserva la sesión, reemplaza el valor del captcha, bien diseñado
-        browser.load_cookies(COOKIESTORE)
         # </WTF!>
 
+        captcha = show_captcha()
         mensaje = read_mensaje(remitente)
         if not mensaje:
             debug("Saliendo limpiamente xD")
             return
+
         else:
+
+            print("  enviando...")
+
+            form = browser.get_forms()[0]
+            form.set_all_readonly(False)
+
+            form["CODAREA"] = codarea
+            form["DE_MESG_TXT"] = remitente
+            form["FormValidar"] = "validar"
             form["MESG_TXT"] = mensaje
+            form["NRO"] = numlocal
+            form["Snb"] = codarea + numlocal
+            form["codigo"] = captcha
             form["msgtext"] = mensaje
             form["pantalla"] = "%s: %s - a %s%s" % (remitente, mensaje, codarea,
                 numlocal)
+            form["sig"] = remitente
             form["sizebox"] = str(110 - len(remitente) - len(mensaje))
-            print("  enviando...")
+            form["subname"] = codarea + numlocal
+
             form.submit(coord=(randrange(100), randrange(100)))
 
 if __name__ == "__main__":
