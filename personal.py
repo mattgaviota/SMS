@@ -2,7 +2,7 @@
 #-*- coding: UTF-8 -*-
 
 from debug import debug
-from decoradores import Verbose
+from decoradores import Verbose, Retry
 from browser import get_browser
 from random import randrange
 import webbrowser
@@ -23,8 +23,8 @@ class Conversation(object):
 
 
     @property
-    def form(self):
-        if self._form is None:
+    def form(self, force=False):
+        if force or self._form is None:
             self._form = self.browser.get_forms(FORMURL)[0]
         
         return self._form
@@ -55,25 +55,21 @@ def read_mensaje(remitente):
     return mensaje.ljust(maxlen)
 
 
-def show_captcha(html):
+@Retry(10)
+def show_captcha():
     browser = get_browser()
+    html = browser.get_html(FORMURL)
     match = re.search(r'"(http://.*?tmp/.*?\.png)"', html)
     if match:
         webbrowser.open(match.group(1))
         debug("Captcha: %s" % match.group(1))
-    else:
-        debug("No se encontró captcha")
-        browser.show()
-        return 1
+        return raw_input("  Captcha(verifique su navegador): ")
 
 
 
 @Verbose(2)
 def main():
     browser = get_browser()
-    form = browser.get_forms(FORMURL)[0]
-    form.set_all_readonly(False)
-    print form
 
     browser.save_cookies(COOKIESTORE)
 
@@ -90,8 +86,12 @@ def main():
 
     print("Datos de la sessión:")
 
-    show_captcha(browser.get_html())
-    form["codigo"] = raw_input("  Captcha(verifique su navegador): ")
+    captcha = show_captcha()
+    form["codigo"] = captcha
+
+    form = browser.get_forms()[0]
+    form.set_all_readonly(False)
+
 
     form["FormValidar"] = "validar"
     form["CODAREA"] = codarea
@@ -108,6 +108,7 @@ def main():
 #        form["codigo"] = raw_input("  Captcha(verifique su navegador): ")
 
         # <WTF! No debería funcionar con el cookie incorrecto, ¿que no?>
+        # R: Conserva la sesión, reemplaza el valor del captcha, bien diseñado
         browser.load_cookies(COOKIESTORE)
         # </WTF!>
 
