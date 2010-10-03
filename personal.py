@@ -46,7 +46,7 @@ def read_mensaje(remitente):
         mensaje = mensaje[:maxlen]
         print('Recortado a: %s' % mensaje)
         opcion = raw_input('Desea reescribirlo? (S/n): ')
-        if opcion in 'sSyY ':
+        if opcion in ('s', 'S', 'y', 'Y', ' ', ''):
             mensaje = read_mensaje(remitente)
         else:
             print('Su mensaje será enviado como fue recortado')
