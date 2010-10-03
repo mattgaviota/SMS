@@ -3,6 +3,7 @@
 
 import Tkinter as tk
 from PIL import Image, ImageTk
+import personal
 
 class App:
 
@@ -13,7 +14,7 @@ class App:
         self.remitente = tk.StringVar()
         self.codarea = tk.StringVar()
         self.numlocal = tk.StringVar()
-        self.mensaje = tk.StringVar()
+        self.mensaje = ''
         imagen = Image.open("captcha.png")
         self.photo = ImageTk.PhotoImage(imagen)
         self.lenmax = 110 - len(self.remitente.get())
@@ -57,7 +58,7 @@ class App:
         self.ent_msje = tk.Text(self.frame, width=20, height=4)
         self.ent_msje.grid(row = 2, column = 4) 
         
-        '''Etiqueta del mensaje'''
+        '''Etiqueta del captcha'''
         self.cap_label = tk.Label(self.frame, text = "Captcha")
         self.cap_label.grid(row = 2, column = 1)
         
@@ -67,7 +68,8 @@ class App:
         self.captcha_label.grid(row = 2, column = 2)
         
     def send(self):
-        print self.remitente.get()
+        self.mensaje =  self.ent_msje.get("1.0", tk.END)
+        print self.mensaje
 
 def main():
     root = tk.Tk()
