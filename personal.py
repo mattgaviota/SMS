@@ -11,18 +11,28 @@ import sys
 import os
 
 FORMURL = """http://sms2.personal.com.ar/Mensajes/sms.php"""
-COOKIESTORE = os.path.expanduser("""~/.personal.cookie""")
+MAXLEN = 110
 
-class Conversation(object):
 
-    def __init__(self, remitente, destinatario):
-        self.remitente = remitente
-        self.destinatario = destinatario
+class Conversacion(object):
+
+    def __init__(self, remitente, codarea, numlocal):
+        """
+        remitente: nombre de quien envía
+        codare: código de area del destino
+        numlocal: número local del destino
+        """
+
+        self.remitente = str(remitente)
+        self.destinatario = str(destinatario)
+        assert 10 == len(self.remitente + self.destinatario), (
+            """El largo total del número debe ser de 10 digitos""")
+
+        #FIXME: get_browser no es threadsafe actualmente
         self.browser = get_browser()
         self._form = None
 
 
-    @property
     def form(self, force=False):
         if force or self._form is None:
             self._form = self.browser.get_forms(FORMURL)[0]
@@ -30,10 +40,14 @@ class Conversation(object):
         return self._form
 
 
-    def send_sms(self, mensaje):
-       """La función que hace el trabajo duro"""
+    def enviar(self, mensaje):
+       """Intenta enviar el mensaje"""
        pass
        return
+
+    
+    def recortar_mensaje(self, mensaje):
+        return mensaje[]
 
 
 
@@ -69,8 +83,6 @@ def show_captcha():
 
 def main():
     browser = get_browser()
-
-    browser.save_cookies(COOKIESTORE)
 
     if len(sys.argv) == 4:
         remitente, codarea, numlocal = sys.argv[1:]
