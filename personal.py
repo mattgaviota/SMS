@@ -47,7 +47,7 @@ class Conversacion(object):
 
     
     def recortar_mensaje(self, mensaje):
-        return mensaje[]
+        return mensaje[:MAXLEN]
 
 
 
