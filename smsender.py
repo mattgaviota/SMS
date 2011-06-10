@@ -54,13 +54,14 @@ class App:
         self.ent_remitente = tk.Entry(self.frame, width = 10, textvariable = self.remitente, borderwidth = 3)
         self.ent_remitente.grid(row = 2, column = 2)
         
+        
         '''Etiqueta del mensaje'''
         self.msje_label = tk.Label(self.frame, text = "Mensaje")
         self.msje_label.grid(row = 2, column = 3)
         
         '''Entrada de texto para el mensaje'''
         self.ent_msje = tk.Text(self.frame, width=25, height=4, wrap = "word", borderwidth = 3)
-        self.ent_msje.grid(row = 2, column = 4) 
+        self.ent_msje.grid(row = 2, column = 4)
         
         '''Etiqueta del captcha'''
         self.cap_label = tk.Label(self.frame, text = "Captcha")
@@ -69,12 +70,14 @@ class App:
         '''Caja de entrada para el captcha'''
         self.ent_captcha = tk.Entry(self.frame, width = 4, textvariable = self.captcha, borderwidth = 3)
         self.ent_captcha.grid(row = 3, column = 3)
+        self.ent_captcha.bind("<Return>", self.keypress_return)
         
         '''Boton para enviar'''
         self.hi_there = tk.Button(self.frame, text="Enviar", command=self.send)
         self.hi_there.grid(row = 3, column = 4)
 
-        
+    def keypress_return(self, event):
+        self.send()
                 
     def send(self):
         mensaje =  self.ent_msje.get("1.0", tk.END)
