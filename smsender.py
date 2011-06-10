@@ -7,10 +7,7 @@ from debug import debug
 from decoradores import Verbose, Retry
 from browser import get_browser
 from random import randrange
-import webbrowser
 import re
-import sys
-import os
 import urllib
 
 FORMURL = """http://sms2.personal.com.ar/Mensajes/sms.php"""
@@ -47,7 +44,7 @@ class App:
         self.ent_numlocal.grid(row = 1, column = 4)
         
         '''Etiqueta del remitente'''
-        self.remitente_label = tk.Label(self.frame, text = "Remitente")
+        self.remitente_label = tk.Label(self.frame, text = "De")
         self.remitente_label.grid(row = 2, column = 1)
         
         '''Caja de entrada para el remitente'''
