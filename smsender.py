@@ -92,6 +92,7 @@ class App:
     def clean(self):
         self.captcha.set('')
         self.ent_msje.delete("1.0", tk.END)
+        self.ent_msje.focus_set()
         self.show_captcha()
         return 0
         
