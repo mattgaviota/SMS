@@ -59,6 +59,7 @@ class App:
         '''Entrada de texto para el mensaje'''
         self.ent_msje = tk.Text(self.frame, width=25, height=4, wrap = "word", borderwidth = 3)
         self.ent_msje.grid(row = 2, column = 4)
+        self.ent_msje.bind("<KP_Enter>", self.keypress_return)
         
         '''Etiqueta del captcha'''
         self.cap_label = tk.Label(self.frame, text = "Captcha")
