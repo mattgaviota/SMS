@@ -68,6 +68,7 @@ class App:
         self.ent_captcha = tk.Entry(self.frame, width = 4, textvariable = self.captcha, borderwidth = 3)
         self.ent_captcha.grid(row = 3, column = 3)
         self.ent_captcha.bind("<Return>", self.keypress_return)
+        self.ent_captcha.bind("<KP_Enter>", self.keypress_return)
         
         '''Boton para enviar'''
         self.hi_there = tk.Button(self.frame, text="Enviar", command=self.send)
