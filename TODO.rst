@@ -1,0 +1,24 @@
+TODO
+====
+
+Prioridad
+---------
+
+Alta
+####
+
+  * Arreglar el problema cuando no se carga el captcha.
+  * Avisar y captar problemas de envío.
+  * Arreglar el problema con la letra ñ y posiblemente palabras con acento.
+  
+Media
+#####
+
+  * Agregar visualizador de mensajes enviados y de mensajes de estado.
+  * Añadir libreta de direcciones.
+
+Baja
+####
+  
+  * Agregar una cola de envío.
+  * Conseguir un ocr para no tener que ingresar el captcha.
