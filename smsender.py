@@ -29,32 +29,33 @@ class App:
         
         '''Etiqueta del codigo de area'''
         self.cod_label = tk.Label(self.frame, text = "Codigo de area")
-        self.cod_label.grid(row = 1, column = 1)
+        self.cod_label.grid(row = 1, column = 1, sticky = tk.W)
         
         '''Caja de entrada del codigo de area'''
-        self.ent_codarea = tk.Entry(self.frame, width = 4, textvariable = self.codarea, borderwidth = 3)
-        self.ent_codarea.grid(row = 1, column = 2)
+        self.ent_codarea = tk.Entry(self.frame, width = 4, textvariable = self.codarea,
+            borderwidth = 3)
+        self.ent_codarea.grid(row = 1, column = 2, sticky = tk.W)
         
         '''Etiqueta del numero local'''
         self.num_label = tk.Label(self.frame, text = "Numero")
-        self.num_label.grid(row = 1, column = 3)
+        self.num_label.grid(row = 1, column = 3, sticky = tk.W)
         
         '''Caja de entrada para el numero local'''
         self.ent_numlocal = tk.Entry(self.frame, width = 7, textvariable = self.numlocal, borderwidth = 3)
-        self.ent_numlocal.grid(row = 1, column = 4)
+        self.ent_numlocal.grid(row = 1, column = 4, sticky = tk.W)
         
         '''Etiqueta del remitente'''
         self.remitente_label = tk.Label(self.frame, text = "De")
-        self.remitente_label.grid(row = 2, column = 1)
+        self.remitente_label.grid(row = 2, column = 1, sticky = tk.W)
         
         '''Caja de entrada para el remitente'''
         self.ent_remitente = tk.Entry(self.frame, width = 10, textvariable = self.remitente, borderwidth = 3)
-        self.ent_remitente.grid(row = 2, column = 2)
+        self.ent_remitente.grid(row = 2, column = 2, sticky = tk.W)
         
         
         '''Etiqueta del mensaje'''
         self.msje_label = tk.Label(self.frame, text = "Mensaje")
-        self.msje_label.grid(row = 2, column = 3)
+        self.msje_label.grid(row = 2, column = 3, sticky = tk.W)
         
         '''Entrada de texto para el mensaje'''
         self.ent_msje = tk.Text(self.frame, width=25, height=4, wrap = "word", borderwidth = 3)
@@ -63,16 +64,16 @@ class App:
         
         '''Etiqueta del captcha'''
         self.cap_label = tk.Label(self.frame, text = "Captcha")
-        self.cap_label.grid(row = 3, column = 1)
+        self.cap_label.grid(row = 3, column = 1, sticky = tk.W)
         
         '''Caja de entrada para el captcha'''
         self.ent_captcha = tk.Entry(self.frame, width = 4, textvariable = self.captcha, borderwidth = 3)
-        self.ent_captcha.grid(row = 3, column = 3)
+        self.ent_captcha.grid(row = 3, column = 3, sticky = tk.W)
         self.ent_captcha.bind("<Return>", self.keypress_return)
         self.ent_captcha.bind("<KP_Enter>", self.keypress_return)
         
         '''Boton para enviar'''
-        self.hi_there = tk.Button(self.frame, text="Enviar", command=self.send)
+        self.hi_there = tk.Button(self.frame, text="Enviar", command=self.send, relief = tk.FLAT)
         self.hi_there.grid(row = 3, column = 4)
 
     def keypress_return(self, event):
@@ -108,7 +109,7 @@ class App:
         '''Imagen del captcha'''
         self.captcha_label = tk.Label(self.frame, image = self.photo)
         self.captcha_label.photo = self.photo
-        self.captcha_label.grid(row = 3, column = 2)
+        self.captcha_label.grid(row = 3, column = 2, sticky = tk.W)
         return 0
 
     def sendsms(self, remitente, codarea, numlocal, mensaje, captcha):
