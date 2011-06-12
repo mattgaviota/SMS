@@ -12,7 +12,7 @@ import urllib
 
 FORMURL = """http://sms2.personal.com.ar/Mensajes/sms.php"""
 
-class App:
+class Main_app:
 
     def __init__(self, master):
 
@@ -24,10 +24,8 @@ class App:
         self.captcha = tk.StringVar()
         self.lenmax = 110 - len(self.remitente.get())
         
-        
         self.show_captcha()
-        
-        
+                
         '''Etiqueta del codigo de area'''
         self.cod_label = tk.Label(self.frame, text = "Codigo de area",
             bg = '#c8c8c8')
@@ -84,7 +82,8 @@ class App:
         self.hi_there = tk.Button(self.frame, text="Enviar", command=self.send,
             relief = tk.FLAT, bg = '#c8c8c8', bd = 0)
         self.hi_there.grid(row = 3, column = 4)
-
+    
+    
     def keypress_return(self, event):
         self.send()
                 
@@ -151,7 +150,7 @@ class App:
 def main():
     root = tk.Tk()
     root.title("SMS to Personal")
-    app = App(root)
+    app = Main_app(root)
     root.mainloop()
     return 0
 
