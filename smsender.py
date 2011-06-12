@@ -35,6 +35,7 @@ class Main_app:
         self.ent_codarea = tk.Entry(self.frame, width = 4, 
             textvariable = self.codarea, bd = 2, relief = tk.GROOVE)
         self.ent_codarea.grid(row = 1, column = 2, sticky = tk.W)
+        self.ent_codarea.focus_set()
         
         '''Etiqueta del numero local'''
         self.num_label = tk.Label(self.frame, text = "Numero", bg = '#c8c8c8')
