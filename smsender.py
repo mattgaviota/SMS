@@ -111,7 +111,7 @@ class App:
         html = browser.get_html(FORMURL)
         match = re.search(r'(http://.*?tmp/.*?\.png)', html)
         
-        while not match.group():
+        while ( not match.group() ) or ( match == None ):
             html = browser.get_html(FORMURL)
             match = re.search(r'(http://.*?tmp/.*?\.png)', html)
             
