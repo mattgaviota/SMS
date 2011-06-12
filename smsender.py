@@ -33,7 +33,7 @@ class Main_app:
         
         '''Caja de entrada del codigo de area'''
         self.ent_codarea = tk.Entry(self.frame, width = 4, 
-            textvariable = self.codarea, bd = 2)
+            textvariable = self.codarea, bd = 2, relief = tk.FLAT)
         self.ent_codarea.grid(row = 1, column = 2, sticky = tk.W)
         
         '''Etiqueta del numero local'''
@@ -42,7 +42,7 @@ class Main_app:
         
         '''Caja de entrada para el numero local'''
         self.ent_numlocal = tk.Entry(self.frame, width = 7, 
-            textvariable = self.numlocal, bd = 2)
+            textvariable = self.numlocal, bd = 2, relief = tk.FLAT)
         self.ent_numlocal.grid(row = 1, column = 4, sticky = tk.W)
         
         '''Etiqueta del remitente'''
@@ -52,7 +52,7 @@ class Main_app:
         
         '''Caja de entrada para el remitente'''
         self.ent_remitente = tk.Entry(self.frame, width = 10, 
-            textvariable = self.remitente, bd = 2)
+            textvariable = self.remitente, bd = 2, relief = tk.FLAT)
         self.ent_remitente.grid(row = 2, column = 2, sticky = tk.W + tk.E)
         
         
@@ -63,7 +63,7 @@ class Main_app:
         
         '''Entrada de texto para el mensaje'''
         self.ent_msje = tk.Text(self.frame, width=25, height=4, wrap = "word",
-            bd = 2)
+            bd = 2, relief = tk.FLAT)
         self.ent_msje.grid(row = 2, column = 4)
         self.ent_msje.bind("<KP_Enter>", self.keypress_return)
         
@@ -73,7 +73,7 @@ class Main_app:
         
         '''Caja de entrada para el captcha'''
         self.ent_captcha = tk.Entry(self.frame, width = 4,
-            textvariable = self.captcha, bd =  2)
+            textvariable = self.captcha, bd =  2, relief = tk.FLAT)
         self.ent_captcha.grid(row = 3, column = 3, sticky = tk.W)
         self.ent_captcha.bind("<Return>", self.keypress_return)
         self.ent_captcha.bind("<KP_Enter>", self.keypress_return)
