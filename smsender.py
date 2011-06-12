@@ -111,7 +111,7 @@ class App:
         html = browser.get_html(FORMURL)
         match = re.search(r'(http://.*?tmp/.*?\.png)', html)
         
-        while ( not match.group() ) or ( match == None ):
+        while ( type(match) == type(None) ) or ( not match.group() ):
             html = browser.get_html(FORMURL)
             match = re.search(r'(http://.*?tmp/.*?\.png)', html)
             
@@ -153,6 +153,7 @@ def main():
     root.title("SMS to Personal")
     app = App(root)
     root.mainloop()
+    return 0
 
 if __name__ == '__main__':
     main()
