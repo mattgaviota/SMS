@@ -9,6 +9,7 @@ Alta
 
   * Avisar y captar problemas de envío.
   * Arreglar el problema con la letra ñ y posiblemente palabras con acento.
+    (este problema es de ClientForm)
   
 Media
 #####
