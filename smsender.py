@@ -41,11 +41,11 @@ class Main_app:
         self.ejemplo_label = tk.Label(self.main_frame,
             text = "código de area sin el 0\n y el número sin el 15",
             bg = '#c8c8c8')
-        self.ejemplo_label.grid(row = 2, column = 1)
+        self.ejemplo_label.grid(row = 2, column = 1, sticky = tk.N)
         
         self.ejemplo_label = tk.Label(self.main_frame,
             text = "por ejemplo\n 3874567890", bg = '#c8c8c8')
-        self.ejemplo_label.grid(row = 2, column = 2)
+        self.ejemplo_label.grid(row = 2, column = 2, sticky = tk.N)
         
         '''Etiqueta del remitente'''
         self.remitente_label = tk.Label(self.main_frame, text = "Tu Nombre",
