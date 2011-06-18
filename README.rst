@@ -15,6 +15,7 @@ Uso
 ---
 
 Para usarlo, ejecutar::
+
 	python smsender.py	
 
 Colaborar
