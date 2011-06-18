@@ -14,7 +14,7 @@ Requisitos
 Uso
 ---
 
-Para usarlo, ejecutar:
+Para usarlo, ejecutar::
 	python smsender.py	
 
 Colaborar
