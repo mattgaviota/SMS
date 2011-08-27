@@ -3,8 +3,7 @@ TODO
 
 En orden de prioridad:
 
-  * Capturar, recuperar y/o notificar problemas de envío 20%
-  * Bug: envío de caráctenes no ANSI (encoding) 50%
+  * Capturar, recuperar y/o notificar problemas de envío 30%
   * Agregar visualizador de mensajes enviados y de mensajes de estado
   * Añadir libreta de direcciones 10%
   * Agregar una cola de envío
