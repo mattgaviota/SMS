@@ -2,14 +2,16 @@
 #-*- coding: utf-8 -*-
 
 import Tkinter as tk
+import re
+import urllib
+
 from PIL import Image, ImageTk
 from tkMessageBox import showinfo, showerror
 from debug import debug
 from decoradores import Verbose, Retry
 from browser import get_browser
 from random import randrange
-import re
-import urllib
+from codecs import decode, encode
 
 FORMURL = """http://sms2.personal.com.ar/Mensajes/sms.php"""
 
@@ -108,6 +110,8 @@ class Main_app:
                 
     def send(self):
         mensaje =  self.ent_msje.get("1.0", tk.END)
+        #mensaje = decode(mensaje, 'utf8')
+        mensaje = encode(mensaje, 'latin-1', 'replace')
         codarea = self.codarea.get()
         if not self.comprobar_cadena(codarea, 10):
             mensaje = 'Número incorrecto, debe tener 10 números'
