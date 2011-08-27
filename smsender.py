@@ -26,6 +26,7 @@ class Main_app:
         self.numlocal = tk.StringVar()
         self.captcha = tk.StringVar()
         self.lenmax = 110 - len(self.remitente.get())
+        self.browser = get_browser()
         
         self.show_captcha()
                 
@@ -93,7 +94,13 @@ class Main_app:
     def keypress_return(self, event):
         self.send()
     
-    def comprobar_longitud_cadena(self, cadena, longitud):
+    def comprobar_cadena(self, cadena, longitud):
+        for caracter in cadena:
+            if caracter in '0123456789':
+                pass
+            else:
+                return False
+        
         if len(cadena) == longitud:
             return True
         else:
@@ -102,15 +109,15 @@ class Main_app:
     def send(self):
         mensaje =  self.ent_msje.get("1.0", tk.END)
         codarea = self.codarea.get()
-        if not self.comprobar_longitud_cadena(codarea, 10):
-            mensaje = 'Número incorrecto, debe tener 10 caracteres'
+        if not self.comprobar_cadena(codarea, 10):
+            mensaje = 'Número incorrecto, debe tener 10 números'
             showerror(title='Error', message=mensaje)
             return 0
         numlocal = self.numlocal.get()
         remitente = self.remitente.get()
         captcha = self.captcha.get()
-        if not self.comprobar_longitud_cadena(captcha, 4):
-            mensaje = 'Captcha incorrecto, debe tener 4 caracteres'
+        if not self.comprobar_cadena(captcha, 4):
+            mensaje = 'Captcha incorrecto, debe tener 4 números'
             showerror(title='Error', message=mensaje)
             return 0
         self.sendsms(remitente, codarea, numlocal, mensaje, captcha)
@@ -126,8 +133,7 @@ class Main_app:
         return 0
         
     def show_captcha(self):
-        browser = get_browser()
-        html = browser.get_html(FORMURL)
+        html = self.browser.get_html(FORMURL)
         match = re.search(r'(http://.*?tmp/.*?\.png)', html)
         
         while ( type(match) == type(None) ) or ( not match.group() ):
@@ -146,8 +152,7 @@ class Main_app:
         return 0
 
     def sendsms(self, remitente, codarea, numlocal, mensaje, captcha):
-        browser = get_browser()
-        form = browser.get_forms()[0]
+        form = self.browser.get_forms()[0]
         form.set_all_readonly(False)
     
         form["CODAREA"] = codarea
