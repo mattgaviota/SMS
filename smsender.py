@@ -3,6 +3,7 @@
 
 import Tkinter as tk
 from PIL import Image, ImageTk
+from tkMessageBox import showinfo, showerror
 from debug import debug
 from decoradores import Verbose, Retry
 from browser import get_browser
@@ -11,6 +12,8 @@ import re
 import urllib
 
 FORMURL = """http://sms2.personal.com.ar/Mensajes/sms.php"""
+
+#TODO Agregar contactos
 
 class Main_app:
 
@@ -89,13 +92,27 @@ class Main_app:
     
     def keypress_return(self, event):
         self.send()
+    
+    def comprobar_longitud_cadena(self, cadena, longitud):
+        if len(cadena) == longitud:
+            return True
+        else:
+            return False
                 
     def send(self):
         mensaje =  self.ent_msje.get("1.0", tk.END)
         codarea = self.codarea.get()
+        if not self.comprobar_longitud_cadena(codarea, 10):
+            mensaje = 'Número incorrecto, debe tener 10 caracteres'
+            showerror(title='Error', message=mensaje)
+            return 0
         numlocal = self.numlocal.get()
         remitente = self.remitente.get()
         captcha = self.captcha.get()
+        if not self.comprobar_longitud_cadena(captcha, 4):
+            mensaje = 'Captcha incorrecto, debe tener 4 caracteres'
+            showerror(title='Error', message=mensaje)
+            return 0
         self.sendsms(remitente, codarea, numlocal, mensaje, captcha)
         self.clean()
         return 0
