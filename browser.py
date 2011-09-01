@@ -23,7 +23,8 @@ twill.commands.config("use_tidy", 0)
 
 TEMPDIR = mkdtemp()
 HOME = os.environ["HOME"]
-CACHE = HOME +  "/.browser_cache"
+CACHE = HOME + "/.browser_cache"
+
 
 class FORM(object):
 
@@ -112,7 +113,6 @@ class BROWSER:
 
         return self.get_code(), self.get_title()
 
-
     def get_html(self, url=None, *args, **kw):
         cache = kw.get("cache", 0)
 
@@ -123,9 +123,7 @@ class BROWSER:
         else:
             html = self.get_html_from_cache(url, cache)
 
-
         return html
-
 
     def get_html_from_cache(self, url, cache):
         if self.htmlCache is None:
@@ -145,23 +143,18 @@ class BROWSER:
 
         return html
 
-
-
     def get_title(self, url=None, *args, **kwargs):
         if url:
             self.go(url, *args, **kwargs)
         return self._twillbrowser.get_title()
-
 
     def get_code(self, url=None):
         if url:
             self.go(url)
         return self._twillbrowser.get_code()
 
-
     def get_url(self):
         return self._twillbrowser.get_url()
-
 
     def get_forms(self, url=None, *args, **kw):
         posturl = url or self.get_url()
@@ -171,7 +164,6 @@ class BROWSER:
         forms = ClientForm.ParseFile(fifo, posturl, backwards_compat=False)
 
         return [FORM(self, form) for form in forms]
-
 
     def put_form(self, form=None, *args, **kw):
         if form is None:

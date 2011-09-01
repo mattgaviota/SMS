@@ -17,8 +17,8 @@ from debug import debug
 from functools import wraps
 from threading import Thread
 
-
 VERBOSE = False
+
 
 class Asyncobj(Thread):
     def __init__(self, func, *args, **kwargs):
@@ -28,17 +28,14 @@ class Asyncobj(Thread):
         Thread.__init__(self)
         self.result = None
 
-
     def __call__(self):
         return self
-
 
     def is_alive(self):
         try:
             return Thread.is_alive(self)
         except AttributeError:
             return Thread.isAlive(self)
-
 
     def run(self):
         self.result = self.func(*self.args, **self.kwargs)
@@ -99,6 +96,7 @@ class TimeoutExc(Exception):
         Exception.__init__(self)
         self.value = value
 
+
 def mptimeout(timeout, func, *args, **kwargs):
     assert inspect.isfunction(func) or inspect.ismethod(func)
 
@@ -122,6 +120,7 @@ def mptimeout(timeout, func, *args, **kwargs):
 #        raise TimeoutExc()
 #    else:
 #        return queue.get()
+
 
 def signaltimeout(timeout, func, *args, **kwargs):
     def handler(snum, frame):
@@ -204,29 +203,23 @@ class Cache:
             r = self.cache.get(args, None)
             if r and time.time() - r[0] < self.limite:
 
-                if VERBOSE: debug(" Cache load: %s %s %s : %s" % (
-                    func.func_name,
-                    args,
-                    kw,
-                    r[1],
-                    ))
-
+                if VERBOSE:
+                    debug(" Cache load: %s %s %s : %s" % (func.func_name, args,
+                        kw, r[1]))
                 return r[1]
 
             else:
-                if VERBOSE: debug(" Cache: No load")
+                if VERBOSE:
+                    debug(" Cache: No load")
                 r = time.time(), func(*args, **kw)
 
                 if r[1] is not None:
                     self.cache[args] = r
                 self.count += 1
 
-                if VERBOSE: debug(" Cache save: %s %s %s : %s" % (
-                    func.func_name,
-                    args,
-                    kw,
-                    r[1],
-                    ))
+                if VERBOSE:
+                    debug(" Cache save: %s %s %s : %s" % (func.func_name, args,
+                        kw, r[1]))
 
                 if self.count % self.flush_frequency == 0:
                     self.flush()
@@ -243,12 +236,14 @@ class Cache:
                 self.cache = pickle.load(f)
                 f.close()
             except:
-                if VERBOSE: debug("Error en lectura del cache")
+                if VERBOSE:
+                    debug("Error en lectura del cache")
             f = open(self.ruta, "wb")
             pickle.dump(self.cache, f, -1)
             f.flush()
             f.close()
-            if VERBOSE: debug("Cache escrito exitosamente en %s" % self.ruta)
+            if VERBOSE:
+                debug("Cache escrito exitosamente en %s" % self.ruta)
 
 
 class Timeit:
@@ -264,14 +259,9 @@ class Timeit:
         timeit = time.time() - start
         self.totaltime += timeit
         self.totalcalls += 1
-        if VERBOSE: debug(" Time: %s %s %s : %s  %.2f (%.2f)" % (
-            self.function.func_name,
-            args,
-            kw,
-            result,
-            timeit,
-            self.totaltime / self.totalcalls,
-            ))
+        if VERBOSE:
+            debug("Time: %s %s %s : %s %.2f (%.2f)" % (self.function.func_name,
+                args, kw, result, timeit, self.totaltime / self.totalcalls))
         return result
 
 
@@ -328,11 +318,13 @@ def get_depth():
 
         middle = (minn + maxn) / 2
 
-    return max(minn - 4, 0) #4 == len(main, module, Verbose, get_depth)
+    return max(minn - 4, 0)  # 4 == len(main, module, Verbose, get_depth)
+
 
 def relpath(path):
     return os.path.abspath(path).replace(os.path.commonprefix(
         (os.path.abspath(os.path.curdir), os.path.abspath(path))), "")
+
 
 def Verbose(calling=1, returning=0):
 
@@ -362,6 +354,7 @@ def Verbose(calling=1, returning=0):
 
         return dfunc
     return decorador
+
 
 def Deprecated(level=1):
     """
@@ -414,9 +407,10 @@ def main():
 
     @Cache
     def fibonar(n):
-        if n < 2: return n
-        else: return fibonar(n - 1) + fibonar(n - 2)
-
+        if n < 2:
+            return n
+        else:
+            return fibonar(n - 1) + fibonar(n - 2)
 
     print(fibonar(500))
 
