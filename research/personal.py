@@ -31,18 +31,10 @@ def send():
         form = browser.get_forms()[0]
         form.set_all_readonly(False)
 
-        form["CODAREA"] = '387'
-        form["DE_MESG_TXT"] = 'remitente'
-      # form["FormValidar"] = "validar"
-        form["MESG_TXT"] = 'mensaje prueba'
-        form["NRO"] = '5174708'
-        form["Snb"] = '387' + '5174708'
+
+        form["Snb"] = '3875174708'
         form["codigo"] = raw_input('captcha: ')
-        form["msgtext"] = 'mensaje prueba'
-        form["pantalla"] = "remitente: mensaje prueba - a 3875174708"
-        form["sig"] = 'remitente'
-        form["sizebox"] = '87'
-        form["subname"] = '387' + '5174708'
+        form["msgtext"] = 'mensaje prueba' + '-' + 'remitente'
         form["FormValidar"] = "validar"
 
-        form.submit()# coord=(randrange(100), randrange(100))
+        form.submit()

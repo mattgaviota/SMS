@@ -24,10 +24,8 @@ class Main_app:
         self.main_frame = tk.Frame(master, bg='#c8c8c8')
         self.main_frame.grid(ipadx=2, ipady=2, padx=2, pady=2)
         self.remitente = tk.StringVar()
-        self.codarea = tk.StringVar()
-        self.numlocal = tk.StringVar()
+        self.number = tk.StringVar()
         self.captcha = tk.StringVar()
-        self.lenmax = 110 - len(self.remitente.get())
         self.browser = get_browser()
 
         self.show_captcha()
@@ -38,10 +36,10 @@ class Main_app:
         self.cod_label.grid(row=1, column=1, sticky=tk.W)
 
         '''Caja de entrada del número'''
-        self.ent_codarea = tk.Entry(self.main_frame, width=10,
-            textvariable=self.codarea, bd=2, relief=tk.GROOVE)
-        self.ent_codarea.grid(row=1, column=2, sticky=tk.W + tk.E)
-        self.ent_codarea.focus_set()
+        self.ent_number = tk.Entry(self.main_frame, width=10,
+            textvariable=self.number, bd=2, relief=tk.GROOVE)
+        self.ent_number.grid(row=1, column=2, sticky=tk.W + tk.E)
+        self.ent_number.focus_set()
 
         '''Etiquetas de ejemplo de número'''
         self.ejemplo_label = tk.Label(self.main_frame,
@@ -108,19 +106,18 @@ class Main_app:
 
     def send(self):
         mensaje = self.ent_msje.get("1.0", tk.END)
-        codarea = self.codarea.get()
-        if not self.comprobar_cadena(codarea, 10):
+        number = self.number.get()
+        if not self.comprobar_cadena(number, 10):
             message = 'Número incorrecto, debe tener 10 números'
             showerror(title='Error', message=message)
             return 0
-        numlocal = self.numlocal.get()
         remitente = self.remitente.get()
         captcha = self.captcha.get()
         if not self.comprobar_cadena(captcha, 4):
             message = 'Captcha incorrecto, debe tener 4 números'
             showerror(title='Error', message=message)
             return 0
-        self.sendsms(remitente, codarea, numlocal, mensaje, captcha)
+        self.sendsms(remitente, number, mensaje, captcha)
         self.clean()
         return 0
 
@@ -151,24 +148,15 @@ class Main_app:
         self.captcha_label.grid(row=3, column=2, sticky=tk.W)
         return 0
 
-    def sendsms(self, remitente, codarea, numlocal, mensaje, captcha):
+    def sendsms(self, remitente, number, mensaje, captcha):
         form = self.browser.get_forms()[0]
         form.set_all_readonly(False)
         mensaje = encode(mensaje, 'latin-1', 'replace')
 
-        form["CODAREA"] = codarea
-        form["DE_MESG_TXT"] = remitente
-        form["FormValidar"] = "validar"
-        form["MESG_TXT"] = mensaje
-        form["NRO"] = numlocal
-        form["Snb"] = codarea + numlocal
+        form["Snb"] = number
         form["codigo"] = captcha
-        form["msgtext"] = mensaje
-        form["pantalla"] = "%s: %s - a %s%s" % (remitente, mensaje, codarea,
-            numlocal)
-        form["sig"] = remitente
-        form["sizebox"] = str(110 - len(remitente) - len(mensaje))
-        form["subname"] = codarea + numlocal
+        form["msgtext"] = mensaje + '-' + remitente
+        form["FormValidar"] = "validar"
 
         form.submit()
         return 0
