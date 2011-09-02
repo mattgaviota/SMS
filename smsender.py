@@ -10,7 +10,6 @@ from browser import get_browser
 from codecs import decode, encode
 from debug import debug
 from decoradores import Verbose, Retry
-from random import randrange
 from tkMessageBox import showinfo, showerror
 
 FORMURL = """http://sms2.personal.com.ar/Mensajes/sms.php"""
@@ -171,7 +170,7 @@ class Main_app:
         form["sizebox"] = str(110 - len(remitente) - len(mensaje))
         form["subname"] = codarea + numlocal
 
-        form.submit(coord=(randrange(100), randrange(100)))
+        form.submit()
         return 0
 
 

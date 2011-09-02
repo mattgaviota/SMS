@@ -4,69 +4,13 @@
 from debug import debug
 from decoradores import Verbose, Retry
 from browser import get_browser
-from random import randrange
+#from random import randrange
 import webbrowser
 import re
 import sys
 import os
 
 FORMURL = """http://sms2.personal.com.ar/Mensajes/sms.php"""
-MAXLEN = 110
-
-
-class Conversacion(object):
-
-    def __init__(self, remitente, codarea, numlocal):
-        """
-        remitente: nombre de quien envía
-        codare: código de area del destino
-        numlocal: número local del destino
-        """
-
-        self.remitente = str(remitente)
-        self.destinatario = str(destinatario)
-        assert 10 == len(self.remitente + self.destinatario), (
-            """El largo total del número debe ser de 10 digitos""")
-
-        #FIXME: get_browser no es threadsafe actualmente
-        self.browser = get_browser()
-        self._form = None
-
-
-    def form(self, force=False):
-        if force or self._form is None:
-            self._form = self.browser.get_forms(FORMURL)[0]
-        
-        return self._form
-
-
-    def enviar(self, mensaje):
-       """Intenta enviar el mensaje"""
-       pass
-       return
-
-    
-    def recortar_mensaje(self, mensaje):
-        return mensaje[:MAXLEN]
-
-
-
-def read_mensaje(remitente):
-    """Ayuda para recortar mensaje en interfaz de usuario en modo texto"""
-    maxlen = 110 - len(remitente)
-    mensaje = raw_input('mensaje (max %d caracteres): ' % maxlen)
-
-    while (len(mensaje) > maxlen):
-        mensaje = mensaje[:maxlen]
-        print('Recortado a: %s' % mensaje)
-        opcion = raw_input('Desea reescribirlo? (S/n): ')
-        if opcion in ('s', 'S', 'y', 'Y', ' ', ''):
-            mensaje = read_mensaje(remitente)
-        else:
-            print('Su mensaje será enviado como fue recortado')
-            return mensaje.ljust(maxlen)
-
-    return mensaje.ljust(maxlen)
 
 
 @Retry(10)
@@ -75,65 +19,30 @@ def show_captcha():
     html = browser.get_html(FORMURL)
     match = re.search(r'"(http://.*?tmp/.*?\.png)"', html)
     if match:
-        webbrowser.open(match.group(1))
-#        debug("Captcha: %s" % match.group(1))
-        return raw_input("  Captcha(verifique su navegador): ")
+        return webbrowser.open(match.group(1))
 
 
-
-def main():
+def send():
+    
     browser = get_browser()
-
-    if len(sys.argv) == 4:
-        remitente, codarea, numlocal = sys.argv[1:]
-    elif len(sys.argv) == 1:
-        print("Datos de la sessión:")
-        remitente = raw_input("  Remitente: ")
-        codarea = raw_input("  Códido de área: ")
-        numlocal = raw_input("  Número: ")
-    else:
-        print("Si no se pasa argumentos le seran preguntados sino invoque:")
-        print("    %s remitente codarea numlocal" % sys.argv[0])
-        return 1
-
-
-
-    print("Mensajes: (deje en blanco para salir)")
     while True:
 
-        # <WTF! No debería funcionar con el cookie incorrecto, ¿que no?>
-        # R: Conserva la sesión, reemplaza el valor del captcha, bien diseñado
-        # </WTF!>
-
         captcha = show_captcha()
-        mensaje = read_mensaje(remitente)
-        if not mensaje:
-            debug("Saliendo limpiamente xD")
-            return
+        form = browser.get_forms()[0]
+        form.set_all_readonly(False)
 
-        else:
+        form["CODAREA"] = '387'
+        form["DE_MESG_TXT"] = 'remitente'
+      # form["FormValidar"] = "validar"
+        form["MESG_TXT"] = 'mensaje prueba'
+        form["NRO"] = '5174708'
+        form["Snb"] = '387' + '5174708'
+        form["codigo"] = raw_input('captcha: ')
+        form["msgtext"] = 'mensaje prueba'
+        form["pantalla"] = "remitente: mensaje prueba - a 3875174708"
+        form["sig"] = 'remitente'
+        form["sizebox"] = '87'
+        form["subname"] = '387' + '5174708'
+        form["FormValidar"] = "validar"
 
-            print("  enviando...")
-
-            form = browser.get_forms()[0]
-            form.set_all_readonly(False)
-
-            form["CODAREA"] = codarea
-            form["DE_MESG_TXT"] = remitente
-            form["FormValidar"] = "validar"
-            form["MESG_TXT"] = mensaje
-            form["NRO"] = numlocal
-            form["Snb"] = codarea + numlocal
-            form["codigo"] = captcha
-            form["msgtext"] = mensaje
-            form["pantalla"] = "%s: %s - a %s%s" % (remitente, mensaje, codarea,
-                numlocal)
-            form["sig"] = remitente
-            form["sizebox"] = str(110 - len(remitente) - len(mensaje))
-            form["subname"] = codarea + numlocal
-
-            form.submit(coord=(randrange(100), randrange(100)))
-
-if __name__ == "__main__":
-    exit(main())
-
+        form.submit()# coord=(randrange(100), randrange(100))
