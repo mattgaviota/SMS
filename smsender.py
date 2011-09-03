@@ -133,7 +133,7 @@ class Main_app:
         match = re.search(r'(http://.*?tmp/.*?\.png)', html)
 
         while (type(match) == type(None)) or (not match.group()):
-            html = browser.get_html(FORMURL)
+            html = self.browser.get_html(FORMURL)
             match = re.search(r'(http://.*?tmp/.*?\.png)', html)
 
         imageurl = match.group()
