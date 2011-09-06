@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>364</width>
+    <height>261</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <widget class="QPushButton" name="send">
+   <property name="geometry">
+    <rect>
+     <x>290</x>
+     <y>230</y>
+     <width>71</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Enviar</string>
+   </property>
+  </widget>
+  <widget class="QListWidget" name="contactoList">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>151</width>
+     <height>211</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="numero_entry">
+   <property name="geometry">
+    <rect>
+     <x>230</x>
+     <y>170</y>
+     <width>131</width>
+     <height>20</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QTextBrowser" name="mensaje_text">
+   <property name="geometry">
+    <rect>
+     <x>170</x>
+     <y>10</y>
+     <width>191</width>
+     <height>151</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>170</x>
+     <y>170</y>
+     <width>45</width>
+     <height>11</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Número</string>
+   </property>
+   <property name="buddy">
+    <cstring>numero_entry</cstring>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>170</x>
+     <y>200</y>
+     <width>45</width>
+     <height>11</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>De</string>
+   </property>
+   <property name="buddy">
+    <cstring>remitente_entry</cstring>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="remitente_entry">
+   <property name="geometry">
+    <rect>
+     <x>230</x>
+     <y>200</y>
+     <width>131</width>
+     <height>20</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="captcha">
+   <property name="geometry">
+    <rect>
+     <x>170</x>
+     <y>230</y>
+     <width>45</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="buddy">
+    <cstring>captcha_entry</cstring>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="captcha_entry">
+   <property name="geometry">
+    <rect>
+     <x>230</x>
+     <y>230</y>
+     <width>51</width>
+     <height>20</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QWidget" name="">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>230</y>
+     <width>131</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="QPushButton" name="add">
+      <property name="text">
+       <string>Agregar</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="edit">
+      <property name="text">
+       <string>Editar</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <spacer name="horizontalSpacer">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <tabstops>
+  <tabstop>mensaje_text</tabstop>
+  <tabstop>numero_entry</tabstop>
+  <tabstop>remitente_entry</tabstop>
+  <tabstop>captcha_entry</tabstop>
+  <tabstop>send</tabstop>
+  <tabstop>add</tabstop>
+  <tabstop>edit</tabstop>
+  <tabstop>contactoList</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>
