@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import os,sys
+import os
+import sys
 
 # Importamos los módulos de Qt
 from PyQt4 import QtCore, QtGui, uic, Qt
@@ -32,16 +33,15 @@ class Main(QtGui.QDialog):
     """La ventana principal de la aplicación."""
     def __init__(self):
         QtGui.QDialog.__init__(self)
-        
+
         # Cargamos la interfaz desde el archivo .ui
-        uifile = os.path.join(
-            os.path.abspath(
-                os.path.dirname(__file__)),'sms.ui')
+        uifile = os.path.join(os.path.abspath(
+            os.path.dirname(__file__)), 'sms.ui')
         uic.loadUi(uifile, self)
 
         self.loadContactos()
         self.listContactos()
-        
+
         self.personal = Personal()
         self.show_captcha()
 
@@ -53,22 +53,22 @@ class Main(QtGui.QDialog):
     '''Metodos para manejar lista de contactos'''
     def saveContactos(self):
         "Guarda las contactos a disco"
-        f = open(os.path.expanduser('~/.contactos'),'w')
+        f = open(os.path.expanduser('~/.contactos'), 'w')
         f.write(json.dumps(self.contactos))
         f.close()
 
     def listContactos(self):
         "Muestra las contactos en la lista"
         self.contactoList.clear()
-        for nombre,url in self.contactos:
+        for nombre, url in self.contactos:
             self.contactoList.addItem(nombre)
 
     @QtCore.pyqtSlot()
     def on_add_clicked(self):
         addDlg = AddContacto(self)
         r = addDlg.exec_()
-        if r: # O sea, apretaron "Add"
-            self.contactos.append ((unicode(addDlg.name.text()),
+        if r:  # O sea, apretaron "Add"
+            self.contactos.append((unicode(addDlg.name.text()),
                                     unicode(addDlg.number.text())))
             self.saveContactos()
             self.listContactos()
@@ -82,8 +82,8 @@ class Main(QtGui.QDialog):
         editDlg.name.setText(name)
         editDlg.number.setText(number)
         r = editDlg.exec_()
-        if r: # O sea, apretaron "Save"
-            self.contactos[curIdx]= [unicode(editDlg.name.text()),
+        if r:  # O sea, apretaron "Save"
+            self.contactos[curIdx] = [unicode(editDlg.name.text()),
                                  unicode(editDlg.number.text())]
             self.saveContactos()
             self.listContactos()
@@ -121,15 +121,14 @@ class Main(QtGui.QDialog):
         imagenpath = self.personal.get_captcha()
         imagen = Qt.QPixmap(imagenpath)
         self.captcha.setPixmap(imagen)
-        
+
     def send_sms(self):
         mensaje = self.mensaje_text.document().toPlainText()
         remitente = self.sender_entry.text()
         numero = self.number_entry.text()
         captcha = self.captcha_entry.text()
         self.personal.send(numero, captcha, mensaje, remitente)
-        
-    
+
     def on_send_clicked(self):
         self.send_sms()
         self.clean_all()
@@ -158,7 +157,7 @@ class EditContacto(AddContacto):
 
 def main():
     app = QtGui.QApplication(sys.argv)
-    window=Main()
+    window = Main()
     window.show()
     sys.exit(app.exec_())
 
