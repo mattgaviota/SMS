@@ -101,7 +101,6 @@ class Main(QtGui.QDialog):
         curIdx = self.contactoList.currentRow()
         name, number = self.contactos[curIdx]
         self.number_entry.setText(number)
-        self.sender_entry.setText(name)
         self.mensaje_text.setFocus()
 
     '''Metodos para enviar el mensaje'''
