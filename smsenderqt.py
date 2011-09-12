@@ -3,6 +3,7 @@
 
 import os
 import sys
+from codecs import encode
 
 # Importamos los módulos de Qt
 from PyQt4 import QtCore, QtGui, uic, Qt
@@ -124,6 +125,7 @@ class Main(QtGui.QDialog):
 
     def send_sms(self):
         mensaje = self.mensaje_text.document().toPlainText()
+        mensaje = unicode(mensaje)
         remitente = self.sender_entry.text()
         numero = self.number_entry.text()
         captcha = self.captcha_entry.text()
