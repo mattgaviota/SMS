@@ -40,4 +40,8 @@ class Personal():
             form["FormValidar"] = "validar"
 
             form.submit()
-            return 0
+
+            if 'alert' in self.browser.get_html():
+                return False
+            else:
+                return True

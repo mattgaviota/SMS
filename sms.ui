@@ -69,6 +69,9 @@
    <property name="styleSheet">
     <string notr="true">background-color: rgb(255, 255, 255);</string>
    </property>
+   <property name="inputMethodHints">
+    <set>Qt::ImhDigitsOnly</set>
+   </property>
   </widget>
   <widget class="QLabel" name="label">
    <property name="geometry">
@@ -143,6 +146,9 @@
    <property name="styleSheet">
     <string notr="true">background-color: rgb(255, 255, 255);</string>
    </property>
+   <property name="inputMethodHints">
+    <set>Qt::ImhDigitsOnly</set>
+   </property>
   </widget>
   <widget class="QPushButton" name="add">
    <property name="geometry">
@@ -155,22 +161,6 @@
    </property>
    <property name="text">
     <string>Agregar</string>
-   </property>
-  </widget>
-  <widget class="QPlainTextEdit" name="mensaje_text">
-   <property name="geometry">
-    <rect>
-     <x>150</x>
-     <y>20</y>
-     <width>161</width>
-     <height>131</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: rgb(255, 255, 255);</string>
-   </property>
-   <property name="backgroundVisible">
-    <bool>false</bool>
    </property>
   </widget>
   <widget class="QLabel" name="label_3">
@@ -238,9 +228,21 @@
     <string>Salir</string>
    </property>
   </widget>
+  <widget class="QTextEdit" name="mensaje_text">
+   <property name="geometry">
+    <rect>
+     <x>150</x>
+     <y>20</y>
+     <width>161</width>
+     <height>131</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(255, 255, 255);</string>
+   </property>
+  </widget>
  </widget>
  <tabstops>
-  <tabstop>mensaje_text</tabstop>
   <tabstop>number_entry</tabstop>
   <tabstop>sender_entry</tabstop>
   <tabstop>captcha_entry</tabstop>

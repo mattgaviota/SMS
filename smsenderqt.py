@@ -118,23 +118,33 @@ class Main(QtGui.QDialog):
         self.captcha_entry.clear()
         self.mensaje_text.setFocus()
 
+    @QtCore.pyqtSlot()
     def show_captcha(self):
         imagenpath = self.personal.get_captcha()
         imagen = Qt.QPixmap(imagenpath)
         self.captcha.setPixmap(imagen)
 
+    @QtCore.pyqtSlot()
     def send_sms(self):
         mensaje = self.mensaje_text.document().toPlainText()
         mensaje = unicode(mensaje)
         remitente = self.sender_entry.text()
         numero = self.number_entry.text()
         captcha = self.captcha_entry.text()
-        self.personal.send(numero, captcha, mensaje, remitente)
 
+        if self.personal.send(numero, captcha, mensaje, remitente):
+            return True
+        else:
+            return False
+
+    @QtCore.pyqtSlot()
     def on_send_clicked(self):
-        self.send_sms()
-        self.clean_all()
-        self.show_captcha()
+        if self.send_sms():
+            self.clean_all()
+            self.show_captcha()
+        else:
+            QtGui.QMessageBox.warning(self, 'Error', 'Captcha incorrecto')
+            self.show_captcha()
 
 
 class AddContacto(QtGui.QDialog):

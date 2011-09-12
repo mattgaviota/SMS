@@ -3,7 +3,7 @@ TODO
 
 En orden de prioridad:
 
-  * Capturar, recuperar y/o notificar problemas de envío 30%
+  * Capturar, recuperar y/o notificar problemas de envío 80%
   * Agregar visualizador de mensajes enviados y de mensajes de estado
     
     * Sin posibilidades por ahora por no poder saber cuando no se manda
