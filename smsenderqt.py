@@ -113,6 +113,7 @@ class Main(QtGui.QDialog):
         self.captcha_entry.setValidator(validator)
         self.number_entry.setValidator(validator)
 
+    @QtCore.pyqtSlot()
     def clean_all(self):
         self.mensaje_text.clear()
         self.captcha_entry.clear()
