@@ -1,9 +1,8 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
+#-*- coding: utf-8 -*-
 
 import os
 import sys
-from codecs import encode
 
 # Importamos los módulos de Qt
 from PyQt4 import QtCore, QtGui, uic, Qt

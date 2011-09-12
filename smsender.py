@@ -7,14 +7,9 @@ import urllib
 
 from PIL import Image, ImageTk
 from browser import get_browser
-from codecs import decode, encode
-from debug import debug
-from decoradores import Verbose, Retry
 from tkMessageBox import showinfo, showerror
 
 from personal import Personal
-
-#TODO Agregar contactos
 
 
 class Main_app:
