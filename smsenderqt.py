@@ -102,7 +102,16 @@ class Main(QtGui.QDialog):
         curIdx = self.contactoList.currentRow()
         name, number = self.contactos[curIdx]
         self.number_entry.setText(number)
-        self.mensaje_text.setFocus()
+        if self.mensaje_text.toPlainText():
+            if self.sender_entry.text():
+                if self.captcha_entry.text():
+                    self.send.setFocus()
+                else:
+                    self.captcha_entry.setFocus()
+            else:
+                self.sender_entry.setFocus()
+        else:
+            self.mensaje_text.setFocus()
 
     '''Metodos para enviar el mensaje'''
     def validation(self):
@@ -114,10 +123,17 @@ class Main(QtGui.QDialog):
         self.number_entry.setValidator(validator)
 
     @QtCore.pyqtSlot()
+    def renew_captcha(self):
+        self.show_captcha()
+        self.captcha_entry.clear()
+        self.captcha_entry.setFocus()
+
+    @QtCore.pyqtSlot()
     def clean_all(self):
         self.mensaje_text.clear()
         self.captcha_entry.clear()
         self.mensaje_text.setFocus()
+        self.show_captcha()
 
     @QtCore.pyqtSlot()
     def show_captcha(self):
@@ -127,25 +143,30 @@ class Main(QtGui.QDialog):
 
     @QtCore.pyqtSlot()
     def send_sms(self):
-        mensaje = self.mensaje_text.document().toPlainText()
+        mensaje = self.mensaje_text.toPlainText()
         mensaje = unicode(mensaje)
         remitente = self.sender_entry.text()
         numero = self.number_entry.text()
+        if numero.length() != 10:
+            QtGui.QMessageBox.warning(self, u'Error', u'Número incorrecto')
+            return 2
         captcha = self.captcha_entry.text()
 
         if self.personal.send(numero, captcha, mensaje, remitente):
-            return True
+            return 0
         else:
-            return False
+            return 1
 
     @QtCore.pyqtSlot()
     def on_send_clicked(self):
-        if self.send_sms():
+        answer = self.send_sms()
+        if not answer:
             self.clean_all()
-            self.show_captcha()
+        elif answer == 1:
+            QtGui.QMessageBox.warning(self, u'Error', u'Captcha incorrecto')
+            self.renew_captcha()
         else:
-            QtGui.QMessageBox.warning(self, 'Error', 'Captcha incorrecto')
-            self.show_captcha()
+            self.number_entry.setFocus()
 
 
 class AddContacto(QtGui.QDialog):

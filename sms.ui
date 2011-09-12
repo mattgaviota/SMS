@@ -243,6 +243,7 @@
   </widget>
  </widget>
  <tabstops>
+  <tabstop>mensaje_text</tabstop>
   <tabstop>number_entry</tabstop>
   <tabstop>sender_entry</tabstop>
   <tabstop>captcha_entry</tabstop>
