@@ -113,6 +113,7 @@ class Main_app:
             message = 'Captcha incorrecto, debe tener 4 números'
             showerror(title='Error', message=message)
             return 0
+
         if self.personal.send(number, captcha, mensaje, remitente):
             self.clean()
         else:

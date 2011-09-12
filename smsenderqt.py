@@ -145,6 +145,7 @@ class Main(QtGui.QDialog):
         mensaje = self.mensaje_text.toPlainText()
         mensaje = unicode(mensaje)
         remitente = self.sender_entry.text()
+        remitente = unicode(remitente)
         numero = self.number_entry.text()
         if numero.length() != 10:
             QtGui.QMessageBox.warning(self, u'Error', u'Número incorrecto')
@@ -180,12 +181,13 @@ class AddContacto(QtGui.QDialog):
 
 
 class EditContacto(AddContacto):
-    """El diálogo de editar un contacto.
+    '''El diálogo de editar un contacto.
     Es exactamente igual a Addcontacto, excepto
-    que cambia el texto de un botón."""
+    que cambia el texto de un botón.
+    '''
     def __init__(self, parent):
         AddContacto.__init__(self, parent)
-        self.addButton.setText("guardar")
+        self.addButton.setText('Guardar')
 
 
 def main():
