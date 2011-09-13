@@ -7,8 +7,9 @@ Permite manejar contactos, para un uso mas rápido y accesible.
 Autores
 -------
 
-    * Carlos Cabrera aka Pointtonull_
     * Matias Novoa aka mattgaviota_
+    * Carlos Cabrera aka Pointtonull_
+
 Uso
 ---
 
