@@ -28,6 +28,11 @@ El número ingresado tiene que tener 10 caracteres. Por ejemplo::
 
     Si el número es de Salta y es 154567890 tendrías que escribir 3874567890
 
+Screenshots
+===========
+
+.. image:: ./screenshots/Smsender.png 
+
 Requisitos
 ----------
 

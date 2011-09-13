@@ -11,11 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Add Radio</string>
-  </property>
-  <property name="windowIcon">
-   <iconset>
-    <normaloff>:/antenna.svg</normaloff>:/antenna.svg</iconset>
+   <string>Contactos</string>
   </property>
   <property name="styleSheet">
    <string notr="true">background-color: rgb(200, 200, 200);</string>
