@@ -4,6 +4,11 @@ Descripción
 Programa para enviar sms usando la interfaz web de Personal (proveedor argentino de telefonia celular).
 Permite manejar contactos, para un uso mas rápido y accesible.
 
+Autores
+-------
+
+    * Carlos Cabrera aka Pointtonull_
+    * Matias Novoa aka mattgaviota_
 Uso
 ---
 
@@ -48,4 +53,7 @@ Puedes clonar el proyecto usando el comando::
 
     git clone http://github.com/mattgaviota/SMS.git
 
-reportar errores o features requeridas en esta misma pagina.
+Reportar errores o features requeridas en esta misma pagina.
+
+.. _Pointtonull: https://github.com/pointtonull
+.. _mattgaviota: https://github.com/mattgaviota
