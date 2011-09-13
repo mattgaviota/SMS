@@ -31,7 +31,7 @@ El número ingresado tiene que tener 10 caracteres. Por ejemplo::
 Screenshots
 ===========
 
-.. image:: ./screenshots/Smsender.png 
+.. image:: screenshots/Smsender.png 
 
 Requisitos
 ----------
