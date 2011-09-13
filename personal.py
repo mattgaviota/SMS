@@ -49,7 +49,6 @@ class Personal():
         form["msgtext"] = message
         form["FormValidar"] = "validar"
 
-        print form
         form.submit()
 
         if 'alert' in self.browser.get_html():
