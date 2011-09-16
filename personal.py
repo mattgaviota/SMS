@@ -13,7 +13,7 @@ class Personal():
 
     def __init__(self):
         self.browser = get_browser()
-        self.path = """http://sms2.personal.com.ar/Mensajes/sms.php"""
+        self.path = """http://sms.personal.com.ar/Mensajes/sms.php"""
 
     def get_captcha(self):
         '''
