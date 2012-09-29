@@ -148,7 +148,7 @@ class Main(QtGui.QDialog):
         remitente = unicode(remitente)
         numero = self.number_entry.text()
         if numero.length() != 10:
-            QtGui.QMessageBox.warning(self, u'Error', u'Número incorrecto')
+            QtGui.QMessageBox.information(self, u'Error', u'Número incorrecto')
             return 2
         captcha = self.captcha_entry.text()
 

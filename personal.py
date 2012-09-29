@@ -41,18 +41,28 @@ class Personal():
         '''
         form = self.browser.get_forms()[0]
         form.set_all_readonly(False)
-        message = message + u'-' + sender
-        message = encode(message, 'latin-1', 'replace')
+
+        sender = encode(sender, 'windows-1252', 'replace')
+        message = encode(message, 'windows-1252', 'replace')
 
         form["Snb"] = number
-        form["codigo"] = captcha
+        form["CODAREA"] = number[:3]
+        form["NRO"] = number[3:]
+        form["subname"] = number
+        form["DE_MESG_TXT"] = sender
+        form["sig"] = sender
         form["msgtext"] = message
+        form["codigo"] = captcha
+        form["MESG_TXT"] = message
         form["FormValidar"] = "validar"
 
         form.submit()
 
-        error_message = '/home/smsonline/fallidos'
+        error_message = "alerta(Verificá la configuración de tu navegador!)"
+        error_message2 = "alerta(El código ingresado es incorrecto. Por favor reingresá el código!)"
         if error_message in self.browser.get_html():
+            return False
+        elif error_message2 in self.browser.get_html():
             return False
         else:
             return True
